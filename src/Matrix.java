@@ -86,8 +86,16 @@ public class Matrix implements Cloneable {
 
     /**
      * Performs LU decomposition of the matrix object.
+     *
+     * Uses Doolittle algorithm
      */
     public void decomposeLU() {
+
+
+
+        for(int i = 0; i<m; i++){
+            //TODO
+        }
         //TODO implement LU decomposition
     }
 }
