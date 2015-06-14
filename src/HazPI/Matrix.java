@@ -1,3 +1,4 @@
+package HazPI;
 /**
  * @author Filip Van Opstal <van_opstal_filip@hotmail.com>
  * @version 0.1
@@ -52,6 +53,8 @@ public class Matrix implements Cloneable {
         this.m = m;
         this.n = n;
         A = new double[m][n];
+        L = new double[m][m];
+        U = new double[n][n];
     }
 
     /*
@@ -91,10 +94,17 @@ public class Matrix implements Cloneable {
      */
     public void decomposeLU() {
 
+        for(int j=0; j<n; j++){
+            U[1][j] = A[1][j];
+        }
+
+        for(int i=0; i<m; i++){
+            L[i][1] = A[i][1]/U[1][1];
+        }
 
 
         for(int i = 0; i<m; i++){
-            //TODO
+            //nothing
         }
         //TODO implement LU decomposition
     }
