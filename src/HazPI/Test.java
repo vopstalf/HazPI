@@ -15,10 +15,9 @@ public class Test {
         matrix.set(2,1,6);
         matrix.set(2,2,3);
 
-        matrix.decomposeLU();
+        matrix.decomposeLU2();
 
-        System.out.println(Arrays.deepToString(matrix.L));
-        System.out.println(Arrays.deepToString(matrix.U));
+        System.out.println(Arrays.deepToString(matrix.A));
 
     }
 }

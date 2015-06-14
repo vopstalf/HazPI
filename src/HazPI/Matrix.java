@@ -15,7 +15,7 @@ public class Matrix implements Cloneable {
      *
      * @serial internal storage matrix.
      */
-    private final double[][] A;
+    public final double[][] A; //TODO change to private
 
     /**
      * Array for the internal storage of the lower triangular matrix L.
@@ -93,6 +93,7 @@ public class Matrix implements Cloneable {
      * Uses Doolittle algorithm
      */
     public void decomposeLU() {
+        double s;
 
         for(int j=0; j<n; j++){
             U[0][j] = A[0][j];
@@ -100,16 +101,46 @@ public class Matrix implements Cloneable {
 
         for(int i=0; i<m; i++){
             L[i][0] = A[i][0]/U[0][0];
+            L[i][i] =1;
         }
 
-
-        for(int i = 1; i<m-1; i++){
-            double dProd=0;
-
-            for(int t=0;t<i-1;t++){
-                dProd += L[i][t]*U[t][i];
+        for(int j = 0; j<n;j++) {
+            for (int i = 1; i < m - 1; i++) {
+                s = 0;
+                for (int t = 0; t < i - 1; t++) {
+                    s += L[i][t] * U[t][j];
+                }
+                U[i][i] = A[i][i] - s;
+                U[i][j] = A[i][j] - s;
+                L[j][i] = (A[j][i] - s) / U[i][i];
             }
-            U[i][i]= A[i][i];
+        }
+        s = 0;
+        for (int t = 0; t < n-2; t++) {
+            s += L[n-1][t] * U[t][n-1];
+        }
+        U[n-1][n-1]=A[n-1][n-1]-s;
+        //TODO implement LU decomposition
+    }
+
+    public void decomposeLU2() {
+        double s;
+
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<i;j++){
+                s = A[i][j];
+                for(int p = 0;p<j;p++){
+                    s -= A[i][p]*A[p][j];
+                }
+                A[i][j] = s/A[j][j];
+            }
+            for(int j=i;j<n;j++){
+                s = A[i][j];
+                for(int p =0;p<i;p++){
+                    s = s - A[i][p]*A[p][j];
+                }
+                A[i][j]=s;
+            }
         }
         //TODO implement LU decomposition
     }
