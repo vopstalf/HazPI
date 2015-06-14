@@ -18,20 +18,6 @@ public class Matrix implements Cloneable {
     public final double[][] A; //TODO change to private
 
     /**
-     * Array for the internal storage of the lower triangular matrix L.
-     *
-     * @serial internal storage L matrix.
-     */
-    public double[][] L; //TODO change to private
-
-    /**
-     * Array for the internal storage of the upper triangular matrix U.
-     *
-     * @serial internal storage U matrix.
-     */
-    public double[][] U; //TODO change to private
-
-    /**
      * Row and column dimensions.
      *
      * @serial row and column dimension.
@@ -53,8 +39,6 @@ public class Matrix implements Cloneable {
         this.m = m;
         this.n = n;
         A = new double[m][n];
-        L = new double[m][m];
-        U = new double[n][n];
     }
 
     /*
@@ -95,37 +79,6 @@ public class Matrix implements Cloneable {
     public void decomposeLU() {
         double s;
 
-        for(int j=0; j<n; j++){
-            U[0][j] = A[0][j];
-        }
-
-        for(int i=0; i<m; i++){
-            L[i][0] = A[i][0]/U[0][0];
-            L[i][i] =1;
-        }
-
-        for(int j = 0; j<n;j++) {
-            for (int i = 1; i < m - 1; i++) {
-                s = 0;
-                for (int t = 0; t < i - 1; t++) {
-                    s += L[i][t] * U[t][j];
-                }
-                U[i][i] = A[i][i] - s;
-                U[i][j] = A[i][j] - s;
-                L[j][i] = (A[j][i] - s) / U[i][i];
-            }
-        }
-        s = 0;
-        for (int t = 0; t < n-2; t++) {
-            s += L[n-1][t] * U[t][n-1];
-        }
-        U[n-1][n-1]=A[n-1][n-1]-s;
-        //TODO implement LU decomposition
-    }
-
-    public void decomposeLU2() {
-        double s;
-
         for(int i = 0; i<n; i++){
             for(int j = 0; j<i;j++){
                 s = A[i][j];
@@ -142,6 +95,5 @@ public class Matrix implements Cloneable {
                 A[i][j]=s;
             }
         }
-        //TODO implement LU decomposition
     }
 }
