@@ -22,14 +22,14 @@ public class Matrix implements Cloneable {
      *
      * @serial internal storage L matrix.
      */
-    private double[][] L;
+    public double[][] L; //TODO change to private
 
     /**
      * Array for the internal storage of the upper triangular matrix U.
      *
      * @serial internal storage U matrix.
      */
-    private double[][] U;
+    public double[][] U; //TODO change to private
 
     /**
      * Row and column dimensions.
@@ -71,7 +71,7 @@ public class Matrix implements Cloneable {
      */
 
     public double get(int i, int j) {
-        return A[i][j];
+        return A[i-1][j-1];
     }
 
     /**
@@ -84,7 +84,7 @@ public class Matrix implements Cloneable {
      */
 
     public void set(int i, int j, double value) {
-        A[i][j] = value;
+        A[i-1][j-1] = value;
     }
 
     /**
@@ -95,16 +95,21 @@ public class Matrix implements Cloneable {
     public void decomposeLU() {
 
         for(int j=0; j<n; j++){
-            U[1][j] = A[1][j];
+            U[0][j] = A[0][j];
         }
 
         for(int i=0; i<m; i++){
-            L[i][1] = A[i][1]/U[1][1];
+            L[i][0] = A[i][0]/U[0][0];
         }
 
 
-        for(int i = 0; i<m; i++){
-            //nothing
+        for(int i = 1; i<m-1; i++){
+            double dProd=0;
+
+            for(int t=0;t<i-1;t++){
+                dProd += L[i][t]*U[t][i];
+            }
+            U[i][i]= A[i][i];
         }
         //TODO implement LU decomposition
     }
