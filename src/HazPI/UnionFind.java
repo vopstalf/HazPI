@@ -1,6 +1,6 @@
 package HazPI;
 /**
- * Weighted Quick Union Find Algorithm
+ * Weighted Quick Union With Path Compression Algorithm
  *
  * @author Filip Van Opstal <van_opstal_filip@hotmail.com>
  * @version 0.1
@@ -55,6 +55,7 @@ public class UnionFind {
      */
     private int root(int i){
         while(i != id[i]){
+            id[i]= id[id[i]];
             i = id[i];
         }
         return i;
