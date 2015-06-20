@@ -1,5 +1,7 @@
 package HazPI;
 /**
+ * Class for Matrix Computations
+ *
  * @author Filip Van Opstal <van_opstal_filip@hotmail.com>
  * @version 0.1
  * @since 2015-06-14
@@ -15,7 +17,7 @@ public class Matrix implements Cloneable {
      *
      * @serial internal storage matrix.
      */
-    public final double[][] A; //TODO change to private
+    public final double[][] A;
 
     /**
      * Row and column dimensions.
