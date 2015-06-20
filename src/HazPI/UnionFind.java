@@ -1,6 +1,6 @@
 package HazPI;
 /**
- * Quick Union Find Algorithm
+ * Weighted Quick Union Find Algorithm
  *
  * @author Filip Van Opstal <van_opstal_filip@hotmail.com>
  * @version 0.1
@@ -18,6 +18,12 @@ public class UnionFind {
      */
     private int[] id;
 
+    /**
+     * Array for internally storing size of connected object sets.
+     *
+     * @serial Array with count number of objects in the tree rooted at each index
+     */
+    private int[] sz;
 
      /*
      * ----------------------------Constructors---------------------------------
@@ -32,6 +38,7 @@ public class UnionFind {
         id = new int[n];
         for(int i = 0; i<n;i++){
             id[i]=i;
+            sz[i]=1;
         }
     }
 
@@ -74,7 +81,19 @@ public class UnionFind {
     public void union(int p, int q){
         int i = root(p);
         int j = root(q);
-        id[i] = j;
+        if(i==j) {
+            return;
+        }
+        if(sz[i]<sz[j]){
+            id[i]= j;
+            sz[j]+=sz[i];
+        }else{
+            id[j]= i;
+            sz[i]+=sz[j];
+        }
+
     }
+
+
 
 }
